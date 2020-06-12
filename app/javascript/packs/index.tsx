@@ -8,6 +8,7 @@ import Root from "./components/root";
 document.addEventListener("DOMContentLoaded", () => {
 
     const store = configStore();
+
     // @ts-ignore
     window.store = store;
     // @ts-ignore

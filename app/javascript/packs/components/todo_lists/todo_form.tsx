@@ -1,6 +1,6 @@
-import React, { FC, useReducer, useState } from "react";
+import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { receiveTodo } from "../../store/todo/actions";
+import { createTodo, receiveTodo } from "../../store/todo/actions";
 
 const TodoForm: FC = () => {
 
@@ -15,12 +15,15 @@ const TodoForm: FC = () => {
 
     function handleSubmit(event: React.FormEvent) {
         event.preventDefault();
-        dispatch(receiveTodo({
+        const newTodo = {
             id: generateId(),
             title,
             body,
             done: false
-        }));
+        }
+        setTitle("");
+        setBody("");
+        dispatch(createTodo(newTodo));
     }
 
     return <form onSubmit={ handleSubmit }>

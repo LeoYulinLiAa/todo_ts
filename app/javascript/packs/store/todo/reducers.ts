@@ -20,7 +20,10 @@ const initialState: TodoState = {
 export function todosReducer(state = initialState, action: ReceiveTodosAction | ReceiveTodoAction): TodoState {
     switch (action.type) {
         case "RECEIVE_TODOS":
-            return action.todos.reduce((obj, todo) => obj[todo.id] = todo, {});
+            return action.todos.reduce((obj, todo) => {
+                obj[todo.id] = todo
+                return obj;
+            }, {});
         case "RECEIVE_TODO":
             const newState = { ...state };
             newState[action.todo.id] = action.todo;
