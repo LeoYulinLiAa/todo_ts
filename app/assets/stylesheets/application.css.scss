@@ -1,0 +1,200 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+$background-color: #ffffff;
+$background-color-light: #efefef;
+$text-default: #333333;
+$text-default-secondary: #666666;
+$color-primary: #8ace15;
+$color-secondary: #999999;
+$color-warning: #f6ba13;
+$color-danger: #ef7240;
+$border-color: #d5d5d5;
+$default-border-radius: 0.25rem;
+
+$themes: (
+        primary: $color-primary,
+        secondary: $color-secondary,
+        warning: $color-warning,
+        danger: $color-danger
+);
+
+body {
+  font-family: 'Segoe UI', 'Open Sans', Tahoma, Geneva, Verdana, sans-serif;
+  color: $text-default;
+  margin: 0;
+  background: $background-color;
+}
+
+a {
+  color: $text-default;
+  text-decoration: underline;
+
+  &:active {
+    color: $text-default-secondary;
+    text-decoration: underline;
+  }
+}
+
+.main {
+  max-width: 768px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: baseline;
+  padding: 1rem;
+
+  h1, h2, h3, h4, h5, h6, p, small, span {
+    @each $theme, $color in $themes {
+      &.#{$theme} {
+        color: darken($color, 10%);
+      }
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+    margin: 1rem 0;
+  }
+
+  small {
+    color: $text-default-secondary;
+  }
+
+  p {
+    margin: 0 0 1rem 0;
+  }
+}
+
+.form-group {
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    margin-bottom: 0.5em;
+  }
+}
+
+@mixin input-theme($color) {
+  border: 1px solid $color;
+  &:focus {
+    border-color: $color;
+    box-shadow: 0 0 0.25rem rgba($color, 0.5);
+    outline: $color;
+  }
+}
+
+input, textarea {
+  padding: 0.5em;
+  border: 1px solid $border-color;
+  border-radius: $default-border-radius;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0.25rem rgba($color-primary, 0.5);
+    outline: $color-primary;
+  }
+
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      @include input-theme($color);
+    }
+  }
+}
+
+@mixin scrollbar-theme($color) {
+  &::-webkit-scrollbar-thumb {
+    background: $color;
+    border-radius: $default-border-radius;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: darken($color, 5%);
+  }
+}
+
+textarea {
+  resize: none;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    cursor: default;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @include scrollbar-theme($color-primary);
+
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      @include scrollbar-theme($color);
+    }
+  }
+}
+
+@mixin button-theme($button-color) {
+  background-color: $button-color;
+  color: white;
+  &:focus {
+    box-shadow: 0 0 0.25rem rgba($button-color, 0.5);
+  }
+  &:hover, &:focus {
+    background-color: darken($button-color, 3%);
+  }
+  &:active {
+    background-color: lighten($button-color, 5%);
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+  border-radius: $default-border-radius;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: $text-default-secondary;
+  background-color: $background-color;
+  margin: 0.25rem;
+
+  @each $theme, $color in $themes {
+    &.#{$theme} {
+      @include button-theme($color);
+    }
+  }
+}
+
+.result-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+
+  li {
+    padding: 0.5rem 1rem;
+
+    &:hover {
+      background-color: $background-color-light;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}

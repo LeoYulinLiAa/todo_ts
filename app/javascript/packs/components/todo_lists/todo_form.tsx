@@ -27,11 +27,15 @@ const TodoForm: FC = () => {
     }
 
     return <form onSubmit={ handleSubmit }>
-        <label htmlFor="title">Title</label>
-        <input value={title} id="title" onChange={ e => setTitle(e.target.value) }/>
-        <label htmlFor="body">Body</label>
-        <input value={body} id="body" onChange={ e => setBody(e.target.value) }/>
-        <button type="submit">Create</button>
+        <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input value={title} id="title" onChange={ e => setTitle(e.target.value) }/>
+        </div>
+        <div className="form-group">
+            <label htmlFor="body">Body</label>
+            <input value={body} id="body" onChange={ e => setBody(e.target.value) }/>
+        </div>
+        <button className="primary" type="submit">Create</button>
     </form>
 }
 
